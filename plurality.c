@@ -1,4 +1,5 @@
 // construct vote function
+// construct print_winner function
 
 #include <cs50.h>
 #include <stdio.h>
@@ -81,7 +82,28 @@ bool vote(string name)
 // Print the winner (or winners) of the election
 void print_winner(void)
 {
-    // TODO
+	candidate temp_candidates[1]; // declare a temporary candidate
+    // compare all candidate votes and print name of the winner
+	for(int i = 0; i < candidate_count; i++)
+	{
+		for(int j = 0; j < candidate_count -1; j++)
+		{
+			if(candidates[j + 1].votes < candidates[j].votes)
+			{
+				temp_candidates[0] = candidates[j];
+				candidates[j] = candidates[j + 1];
+				candidates[j + 1] = temp_candidates[0];
+			}
+		}
+	}
+
+	// compare then print winner name(s)
+	for(int i = 0; i < candidate_count; i++)
+	{
+		if(candidates[i].votes == candidates[candidate_count - 1].votes)
+		printf("%s\n", candidates[i].name);
+	}
+
     return;
 }
 
